@@ -1,4 +1,5 @@
 import {UseContextGlobal} from '../../Context';
+import {Link} from 'react-router-dom';
 import OrderCard  from "../OrderCard";
 const CheckoutSideMenu = () => {
     const context = UseContextGlobal()
@@ -43,14 +44,15 @@ const CheckoutSideMenu = () => {
                                 </div>
                                  <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             </div>
-                            <div className="mt-2">
-                                    <a
-                                    href="#"
-                                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-                                     onClick={()=> context.handleCheckout()}
-                                     >
+                            <div className="">
+                                <Link to='/my-orders/last'>
+                                    <button
+                                    className="w-full rounded-lg  border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                    onClick={()=> context.handleCheckout()}
+                                    >
                                     Checkout
-                                    </a>
+                                    </button>
+                                </Link>
                             </div>
                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>

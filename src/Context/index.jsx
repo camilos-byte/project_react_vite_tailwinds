@@ -12,7 +12,7 @@ export const ShoppingCartProvider = ({children}) => {
   const [cardProducts, setcardProducts] = useState([])
  //CheckoutSideMenu 
  const [isCheckoutSideMenuOpen, closeCheckoutSideMenu ] = useState(false)
- //cardProduct orderd checkout 
+ // order checkout 
  const [order, setOrders] = useState([])
 
 
@@ -56,14 +56,18 @@ const totalPrice = (products) => {
 }
 
 const handleCheckout = () => {
+  // console.log(order);
   const orderToAdd = {
     date : new Date(),
     products: cardProducts,
     totalProducts: cardProducts.length,
     totalPrice: totalPrice(cardProducts)
   }
+  
   setOrders([...order, orderToAdd])
   setcardProducts([])
+  setCount(0)
+  closeCheckoutSideMenu(false)
 }
   
   return (
@@ -85,8 +89,11 @@ const handleCheckout = () => {
         renderIcon,
         deleteProduct,
         totalPrice,
-        handleCheckout
-        }}>
+        handleCheckout,
+        order,
+        setOrders
+        }
+        }>
       {children}
     </ShoppingCartContext.Provider>
   )
