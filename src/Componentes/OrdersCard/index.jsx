@@ -1,33 +1,42 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
 
-const OrdersCard = (props) => {
-    const {totalPrice, totalProducts} = props
-    // totalPrice, totalProducts
+import { ShoppingCartIcon,CurrencyDollarIcon,CalendarDaysIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+
+const OrdersCard = props => {
+    const {orderDate, totalPrice, totalProducts} = props
+    
     return ( 
         <div className="mt-4">
             <div className="flow-root ">
-                <ul role="list" className="-my-6  divide-gray-200 ">
-                    {/* <li  className="flex py-6 mt-3" > */}
-                    <div className="ml-4 flex flex-1 flex-col ">
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                            <p className="ml-4 items-end"> 
-                                <span>01/02/2023</span>
-                                <span>{totalProducts}</span>
-                                <span>{totalPrice}</span>
-                            </p>
+                <div className="flex justify-between items-center mb-3 border rounded-lg p-3">
+                    <div className="flex items-center justify-between grow gap-2 px-4">
+                        <div className="flex gap-1 items-center justify-center">
+                            <ShoppingCartIcon className="h-6 w-6 text-black" />
+                            <p className="font-light text-sm">{`${totalProducts} ${totalProducts === 1 ? "producto" : "productos"}`}</p>
+                        </div>
+                        <div className="flex gap-1 items-center justify-center">
+                            <CurrencyDollarIcon className="h-6 w-6 text-black" />
+                            <p className="font-light text-sm">${totalPrice}</p>
+                        </div>
+                        <div className="flex gap-1 items-center justify-center">
+                            <CalendarDaysIcon className="h-6 w-6 text-black" />
+                            <p className="font-light text-sm">{orderDate}</p>
                         </div>
                     </div>
-                    {/* </li> */}
-                </ul>
+                    <div className="flex items-center gap-2">
+                        <ChevronRightIcon className="h-6 w-6 text-black" />
+                    </div>
+                </div>
             </div>
         </div>
-    );
+    )
 }
  
 
 OrdersCard.propTypes = {
-    totalPrice: PropTypes.string.isRequired,
-    totalProducts: PropTypes.string.isRequired, 
+    totalPrice: PropTypes.number.isRequired,
+    totalProducts: PropTypes.number.isRequired, 
+    orderDate: PropTypes.string.isRequired,
     // keyUid:PropTypes.string.isRequired,  
 }
 export default OrdersCard;

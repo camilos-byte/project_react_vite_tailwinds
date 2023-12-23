@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom';
 
 function MyOrder() {
   const context = UseContextGlobal();
+  const currentPath = window.location.pathname
+  var id = currentPath.substring(currentPath.lastIndexOf('/')+1);
+  // si el id es last,  id va hacer igual al ultimo
+  if(id === 'last') id = context.order.length -1
   return (
     <div>
       <div className="flex items-center justify-center relative W-80">
@@ -19,10 +23,9 @@ function MyOrder() {
 
       </div>
       <div className=" flex flex-1  flex-col divide-y">
-      <h2 className='flex justify-center'>ORDEN NUMERO </h2>
-      {console.log(context.order)}
+      <h2 className='flex justify-center'>ORDEN NUMERO {context.order[id].id}</h2>
         {
-          context.order?.slice(-1)[0].products.map(product =>(
+          context.order?.[id]?.products.map(product =>(
               <OrderCard
               key={product.keyUid}
               keyUid={product.keyUid}

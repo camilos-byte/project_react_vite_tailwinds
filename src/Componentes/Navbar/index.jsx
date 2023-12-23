@@ -10,43 +10,51 @@ const Navbar = () =>{
         <nav className='flex justify-between items-center fixed z-10 top-0  w-full py-5 px-8 text-sm font-light  bg-white'>
             <ul className="flex items-center gap-3 ">
                 <li className="font-semibold text-lg hover:text-purple-400">
-                    <NavLink  to='/'>
+                    <NavLink  to='/'
+                    onClick={()=>context.setSearchByCategory('')}
+                    >
+                        
                        ShopiHome
                     </NavLink>
                 </li>
                 <li className="hover:text-purple-400" >
                     <NavLink  
                     to='/' 
+                    onClick={()=>context.setSearchByCategory('')}
                     className={({ isActive }) => isActive ? activeStyle : undefined}>
                        All
                     </NavLink>
                 </li>
                 <li className="hover:text-purple-400" >
                     <NavLink  
-                    to='/Clothes'
+                    to='/category/mens clothing'
+                    onClick={()=>context.setSearchByCategory(`men's clothing`)}
                     className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       Clothes
+                       men's clothing
                     </NavLink>
                 </li>
                 <li  className="hover:text-purple-400" >
                     <NavLink  
-                    to='/Electronics'
+                    to='/category/electronics'
+                    onClick={()=>context.setSearchByCategory('electronics')}
                     className={({ isActive }) => isActive ? activeStyle : undefined}>
                        Electronics
                     </NavLink>
                 </li>
                 <li className="hover:text-purple-400" >
                     <NavLink  
-                    to='/Furnitures'
+                    to='/category/jewelery'
+                    onClick={()=>context.setSearchByCategory('jewelery')}
                     className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       Furnitures
+                       Jewelery
                     </NavLink>
                 </li>
                 <li className="hover:text-purple-400" >
                     <NavLink  
-                    to='/Toys'
+                    to='/category/womens clothing'
+                    onClick={()=>context.setSearchByCategory(`women's clothing`)}
                     className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       Toys
+                       Women's Clothing
                     </NavLink>
                 </li>
                 <li className="hover:text-purple-400" >
@@ -59,7 +67,7 @@ const Navbar = () =>{
             </ul>
             <ul className="flex items-center gap-3">
                 <li className="hover:text-purple-400" >
-                    andressalgado742@gmail.com
+                    andressalgado742
                 </li>
                 <li className="hover:text-purple-400" >
                     <NavLink  

@@ -1,7 +1,10 @@
 
 import { createContext, useState,useContext} from 'react'
 export const ShoppingCartContext = createContext()
+import { useFetch } from '../Hooks/useFetch';
+import UrlApi from '../Api';
 
+import { v4 as uuidv4 } from 'uuid'
 export const ShoppingCartProvider = ({children}) => {
   const [count, setCount] = useState(0)
   //abrir y cerrar la cart del pruducto
@@ -15,9 +18,28 @@ export const ShoppingCartProvider = ({children}) => {
  // order checkout 
  const [order, setOrders] = useState([])
 
+ //get products 
+ const [items, setItems] = useState(null)
+const data = useFetch(UrlApi[0].getProduct);
+
+//searchByTitle 
+const [searchByTitle , setSearchByTitle ] = useState('')
+
+//searchByCategory
+const [searchByCategory , setSearchByCategory ] = useState('')
+
+//funcion ´para filtrar por categoria y titulo
+const filteredItems =data?.filter(todo=>{
+  //filtramos los elementos por titulos 
+  const titleMatch = todo.title.toLowerCase().includes(searchByTitle.toLowerCase())
+  //filtramos por las categorias 
+  const categoryMatch = searchByCategory.toLowerCase() === 'all' || 
+  todo.category.toLowerCase().includes(searchByCategory.toLowerCase());
+  return titleMatch && categoryMatch;
+})
 
 
-  const showProduct  = (data) => {
+const showProduct  = (data) => {
    closeProductDetail(true);
    setProductToShow(data);
   }
@@ -31,7 +53,8 @@ export const ShoppingCartProvider = ({children}) => {
 
 
  const renderIcon = (keyUid,props) =>{
-    const  isInCart = cardProducts.filter(product => product.keyUid == keyUid).length > 0
+   const  isInCart = cardProducts.filter(product => product.keyUid === keyUid).length > 0;
+   console.log(cardProducts);
     if (isInCart) {
       return (
         <button className='bg-black text-white rounded-lg w-full py-2 font-medium hover:bg-black/95 didsabled:cursor-not-allowed disabled:opacity-50'
@@ -39,8 +62,10 @@ export const ShoppingCartProvider = ({children}) => {
       )
     } else {
       return (
+        
           <button className='bg-black text-white rounded-lg w-full py-2 font-medium hover:bg-black/95 '
-          onClick={(event) => producData(event, props)}>Add to Cart 🛒</button>
+          onClick={(event) => producData(event, props)}
+          >Add to Cart 🛒</button>
       )
   }
  }
@@ -58,6 +83,7 @@ const totalPrice = (products) => {
 const handleCheckout = () => {
   // console.log(order);
   const orderToAdd = {
+    id: uuidv4(),
     date : new Date(),
     products: cardProducts,
     totalProducts: cardProducts.length,
@@ -91,7 +117,14 @@ const handleCheckout = () => {
         totalPrice,
         handleCheckout,
         order,
-        setOrders
+        setOrders,
+        items,
+        setItems,
+        filteredItems,
+        searchByTitle,
+        setSearchByTitle,
+        searchByCategory,
+        setSearchByCategory,
         }
         }>
       {children}
