@@ -5,7 +5,8 @@ import {ShoppingCartContext} from '../../Context';
 const Navbar = () =>{
     const context = useContext(ShoppingCartContext)
     const activeStyle = 'underline underline-offset-4 '
-
+    const  valuesLocal = context.accountLocalStorage()
+    // console.log(context.renderView());
     return (
         <nav className='flex justify-between items-center fixed z-10 top-0  w-full py-5 px-8 text-sm font-light  bg-white'>
             <ul className="flex items-center gap-3 ">
@@ -66,30 +67,53 @@ const Navbar = () =>{
                 </li>
             </ul>
             <ul className="flex items-center gap-3">
-                <li className="hover:text-purple-400" >
-                    andressalgado742
-                </li>
-                <li className="hover:text-purple-400" >
-                    <NavLink  
-                    to='/my-orders'
-                    className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       My Orders
-                    </NavLink>
-                </li>
-                <li className="hover:text-purple-400" >
-                    <NavLink  
-                    to='/my-account'
-                    className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       My Account
-                    </NavLink>
-                </li>
-                <li className="hover:text-purple-400" >
-                    <NavLink  
-                    to='Signin'
-                    className={({ isActive }) => isActive ? activeStyle : undefined}>
-                       Sing In
-                    </NavLink>
-                </li>
+                {/* <li className="hover:text-purple-400" > */}
+                    {
+                    context.renderView () && !valuesLocal.hasUserAnAccount  ? (
+                        <li className="hover:text-purple-400" >
+                            <NavLink  
+                                to='Signin'
+                                className={({ isActive }) => isActive ? activeStyle : undefined}
+                                onClick={()=> context.handleSignOut()}
+                            >
+                            Sing in
+                            </NavLink>
+                        </li>
+                    ) : (
+                        <ul className="flex items-center gap-3">
+                            <li className="hover:text-purple-400" >
+                                {valuesLocal.parsedAccount?.email}
+                            </li>
+                            < li className="hover:text-purple-400" >
+                                <NavLink  
+                                to='/my-orders'
+                                className={({ isActive }) => isActive ? activeStyle : undefined}>
+                                My Orders
+                                </NavLink>
+                            </li>
+                            <li className="hover:text-purple-400" >
+                                <NavLink  
+                                to='/my-account'
+                                className={({ isActive }) => isActive ? activeStyle : undefined}
+                            
+                                >
+                                My Account
+                                </NavLink>
+                            </li>
+                            <li className="hover:text-purple-400" >
+                            <NavLink  
+                                to='/Signin'
+                                className={({ isActive }) => isActive ? activeStyle : undefined}
+                                onClick={()=> context.handleSignOut()}
+                            >
+                            Sing Out
+                            </NavLink>
+                            </li>
+                        </ul>
+
+                    )
+                    }
+                {/* </li> */}
                 <li className="hover:text-purple-400" >
                     🛒{context.count}
                 </li>

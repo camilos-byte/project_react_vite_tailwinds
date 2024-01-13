@@ -27,8 +27,8 @@ function MyOrder() {
         {
           context.order?.[id]?.products.map(product =>(
               <OrderCard
-              key={product.keyUid}
-              keyUid={product.keyUid}
+              key={product.index}
+              index={product.index}
               title={product.title}
               image={product.image}
               price={product.price}

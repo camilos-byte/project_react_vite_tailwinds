@@ -22,7 +22,7 @@ const Card = (props) => {
                 <h3 className='text-sm font-light'>{props.title}</h3>
                 <p className='font-medium'>{props.price}</p>
             </div>
-            {context.renderIcon(props.keyUid,props)}
+            {context.renderIcon(props.index,props)}
         </section>
     </div>
       );
@@ -33,6 +33,6 @@ Card.propTypes = {
     category: PropTypes.string.isRequired, 
     title: PropTypes.string.isRequired, 
     price: PropTypes.number.isRequired, 
-    keyUid: PropTypes.string.isRequired, 
+    index: PropTypes.number.isRequired, 
 }
 export default Card

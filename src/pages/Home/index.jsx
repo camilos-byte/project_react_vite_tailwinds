@@ -1,6 +1,4 @@
 import Card from '../../Componentes/Card';
-import { useParams } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'
 import {UseContextGlobal} from '../../Context';
 import ProductDetails from '../../Componentes/ProductDetail'
 
@@ -21,10 +19,10 @@ function Home() {
             placeholder="Search Mockups, Logos..." required/>
         </div>
         <section className='grid place-items-center gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-screen-xl'>
-          {context.filteredItems?.map(product => (
+          {context.filteredItems?.map( (product ,index) => (
             <Card 
-            key={product?.id} 
-            keyUid={uuidv4()}
+            key={index} 
+            index={index}
             title={product?.title} 
             category={product?.category} 
             price={product.price} 

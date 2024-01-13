@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
-
+import {UseContextGlobal} from '../../Context';
 const OrderCard = (props) => {
+    const context = UseContextGlobal();
+    
     return ( 
         <div className="mt-4">
                 <div className="flow-root "> 
@@ -25,14 +27,13 @@ const OrderCard = (props) => {
                                     <p className="mt-1 text-sm text-gray-500">{props.category}</p>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                    <p className="text-gray-500">Qty 3</p>
 
                                     <div className="flex">
                                         { props.deleteProduct ? (
                                                 <button
                                                     type="button"
                                                     className="font-medium text-indigo-600 hover:text-indigo-500 items-end"
-                                                onClick={ () => props.deleteProduct(props.keyUid)  }
+                                                onClick={ () => props.deleteProduct(props.index) }
                                                 > 
                                                     Remove
                                                 </button>
@@ -55,6 +56,6 @@ OrderCard.propTypes = {
     title: PropTypes.string.isRequired, 
     price: PropTypes.number.isRequired, 
     // deleteProduct: PropTypes.string.isRequired,  
-    keyUid:PropTypes.string.isRequired,  
+    index:PropTypes.number.isRequired,  
 }
 export default OrderCard;

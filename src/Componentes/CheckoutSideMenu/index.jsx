@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import OrderCard  from "../OrderCard";
 const CheckoutSideMenu = () => {
     const context = UseContextGlobal()
+    const  valuesLocal = context.accountLocalStorage()
 
     if (context.isCheckoutSideMenuOpen) {
         return ( 
@@ -24,8 +25,8 @@ const CheckoutSideMenu = () => {
                                     {
                                         context.cardProducts.map(product =>(
                                             <OrderCard
-                                            key={product.keyUid}
-                                            keyUid={product.keyUid}
+                                            key={product.index}
+                                            index={product.index}
                                             title={product.title}
                                               image={product.image}
                                               price={product.price}
@@ -45,7 +46,7 @@ const CheckoutSideMenu = () => {
                                  <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                             </div>
                             <div className="">
-                                <Link to='/my-orders/last'>
+                                <Link to={valuesLocal.hasUserAnAccount ? '/my-orders/last' :'/Signin'}   >
                                     <button
                                     className="w-full rounded-lg  border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                     onClick={()=> context.handleCheckout()}
@@ -54,6 +55,7 @@ const CheckoutSideMenu = () => {
                                     </button>
                                 </Link>
                             </div>
+
                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>
                                     or
